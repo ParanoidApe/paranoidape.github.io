@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A collection of paranoid writings. Dive into the thoughts that whisper in the shadows.">
+    <meta name="description" content="Explore the paranoid musings of a restless mind. Delve into writings that echo in the shadows.">
     <title>Paranoid Musings</title>
     <style>
         body {
@@ -15,85 +15,98 @@
             line-height: 1.6;
         }
         header {
-            background-color: #333;
-            padding: 20px 0;
+            height: 100vh;
+            background: url('background.jpg') no-repeat center center/cover;
+            color: #fff;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
         header h1 {
+            font-size: 3.5em;
             margin: 0;
-            font-size: 2.5em;
-            color: #ff6f61;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
         }
-        nav {
-            margin-top: 10px;
+        header p {
+            font-size: 1.2em;
+            margin: 20px 0;
         }
-        nav a {
-            color: #eaeaea;
+        header .cta {
+            margin-top: 20px;
+        }
+        header .cta a {
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1em;
+            color: #1a1a1a;
+            background-color: #ff6f61;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        nav a:hover {
-            color: #ff6f61;
+        header .cta a:hover {
+            background-color: #e05b51;
+            transform: scale(1.05);
         }
         main {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 50px auto;
             padding: 20px;
-            background: #252525;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
-        article {
-            margin-bottom: 40px;
+        section {
+            margin-bottom: 60px;
         }
-        article h2 {
+        section h2 {
             color: #ff6f61;
-            font-size: 1.8em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            text-align: center;
         }
-        article p {
-            margin: 10px 0;
+        section p {
+            margin: 20px 0;
+            text-align: center;
         }
         footer {
             text-align: center;
             padding: 20px;
             background-color: #333;
             color: #aaa;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
         }
     </style>
 </head>
 <body>
+    <!-- Hero Section -->
     <header>
         <h1>Paranoid Musings</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#writings">Writings</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <p>Dive into the labyrinth of thoughts that whisper in the shadows.</p>
+        <div class="cta">
+            <a href="#writings">Explore Writings</a>
+        </div>
     </header>
+
+    <!-- Content Section -->
     <main>
-        <section id="home">
-            <article>
-                <h2>Welcome</h2>
-                <p>Step into the labyrinth of thoughts that echo in the recesses of a paranoid mind. Unfiltered, raw, and unapologetically real.</p>
-            </article>
-        </section>
         <section id="writings">
+            <h2>Featured Writings</h2>
+            <p>Discover fragments of paranoia and echoes of the unknown.</p>
             <article>
-                <h2>They Are Watching</h2>
+                <h3>They Are Watching</h3>
                 <p>The walls have ears, or so they say. But I know it’s true. The cameras blink in unison with my thoughts, recording every breath.</p>
             </article>
             <article>
-                <h2>The Flickering Light</h2>
+                <h3>The Flickering Light</h3>
                 <p>It wasn’t a coincidence. The light flickered three times—once for each secret I tried to keep. They’re telling me they know.</p>
             </article>
         </section>
+        <section id="about">
+            <h2>About</h2>
+            <p>This space is a glimpse into the mind of someone who questions everything. The writings here capture the unease of the unseen and the whispers of the unknown.</p>
+        </section>
     </main>
+
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Paranoid Musings. All rights reserved.</p>
     </footer>
