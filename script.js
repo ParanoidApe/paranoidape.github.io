@@ -12,40 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
         keyFound: false,
     };
 
-    // Load images
-    const images = {
-        desk: new Image(),
-        door: new Image(),
-        mirror: new Image(),
-        typewriter: new Image(),
-        portal: new Image(),
-    };
-
-    images.desk.src = './assets/desk.png';
-    images.door.src = './assets/door.png';
-    images.mirror.src = './assets/mirror.png';
-    images.typewriter.src = './assets/typewriter.png';
-    images.portal.src = './assets/portal.png';
-
-    let imagesLoaded = 0;
-    const totalImages = Object.keys(images).length;
-
-    // Function to track loading of all images
-    function onImageLoad() {
-        imagesLoaded++;
-        if (imagesLoaded === totalImages) {
-            drawRoom(); // Draw the room once all images are loaded
-        }
-    }
-
-    // Set the onload handler for each image and log errors if any occur
-    for (let key in images) {
-        images[key].onload = onImageLoad;
-        images[key].onerror = () => {
-            console.error(`Failed to load image: ${images[key].src}`);
-        };
-    }
-
     // Draw the initial room state
     function drawRoom() {
         console.log("Drawing the room...");
@@ -55,24 +21,39 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = "#e800e8"; // Pink walls
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Draw objects conditionally based on room state
-        ctx.drawImage(images.desk, 100, 350, 150, 100); // Desk
+        // Draw the desk
+        ctx.fillStyle = "#8B4513"; // Brown color for the desk
+        ctx.fillRect(100, 350, 150, 100); // Desk body
 
+        // Draw the typewriter on the desk
+        ctx.fillStyle = "#2F4F4F"; // Dark gray for the typewriter
+        ctx.fillRect(130, 370, 90, 30); // Typewriter body
+
+        // Draw the door or portal
         if (roomState.doorOpen) {
-            ctx.drawImage(images.portal, 600, 200, 100, 200); // Draw portal if door is open
+            // Draw portal
+            ctx.fillStyle = "#00FF00"; // Bright green for the portal
+            ctx.beginPath();
+            ctx.arc(650, 300, 50, 0, Math.PI * 2, false); // Circular portal
+            ctx.fill();
         } else {
-            ctx.drawImage(images.door, 600, 200, 100, 200); // Draw door if not open
+            // Draw door
+            ctx.fillStyle = "#654321"; // Brown color for the door
+            ctx.fillRect(600, 200, 100, 200); // Door body
+            ctx.fillStyle = "#FFD700"; // Gold for the door handle
+            ctx.beginPath();
+            ctx.arc(680, 300, 10, 0, Math.PI * 2, false); // Door handle
+            ctx.fill();
         }
 
+        // Draw the mirror
         if (!roomState.mirrorBroken) {
-            ctx.drawImage(images.mirror, 400, 100, 150, 150); // Draw mirror if not broken
+            ctx.fillStyle = "#C0C0C0"; // Silver color for the mirror frame
+            ctx.fillRect(400, 100, 150, 150); // Mirror frame
+            ctx.fillStyle = "#87CEEB"; // Light blue for the mirror glass
+            ctx.fillRect(410, 110, 130, 130); // Mirror glass
         }
-
-        ctx.drawImage(images.typewriter, 250, 350, 150, 100); // Typewriter
     }
-
-    // Draw after a delay to ensure it shows something initially (fallback)
-    setTimeout(drawRoom, 1000);
 
     // Update room graphics when state changes
     function updateRoom() {
@@ -135,4 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             input.value = '';
         }
     });
+
+    // Draw the initial state of the room
+    drawRoom();
 });
