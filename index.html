@@ -8,39 +8,10 @@
 </head>
 <body>
     <div id="game">
-        <canvas id="gameCanvas" width="640" height="480"></canvas> <!-- Add your canvas here -->
+        <canvas id="gameCanvas" width="640" height="480"></canvas> <!-- Canvas for graphics -->
         <input type="text" id="commandInput" placeholder="Enter a command..." autofocus>
+        <div id="output"></div> <!-- For displaying text responses -->
     </div>
     <script src="script.js"></script> <!-- Link your external JS file -->
-    <script>
-        // Inline JavaScript if you want to include the drawing code directly
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-
-        // Draw the walls
-        ctx.fillStyle = "#e800e8"; // Pink walls
-        ctx.fillRect(0, 0, 640, 480);
-
-        // Draw the bricks
-        ctx.fillStyle = "#000000";
-        for (let x = 0; x < 640; x += 40) {
-            for (let y = 0; y < 480; y += 20) {
-                ctx.fillRect(x + 5, y + 5, 30, 10); // Black rectangles for bricks
-            }
-        }
-
-        // Draw the doorway
-        ctx.fillStyle = "#00ff00"; // Green border
-        ctx.fillRect(240, 100, 160, 240);
-        ctx.fillStyle = "#00ffff"; // Cyan sky
-        ctx.fillRect(250, 110, 140, 220);
-
-        // Add a ladder
-        ctx.fillStyle = "#ffcc00"; // Yellow ladder
-        ctx.fillRect(320, 200, 10, 100);
-        for (let i = 0; i < 5; i++) {
-            ctx.fillRect(310, 210 + i * 20, 30, 5);
-        }
-    </script>
 </body>
 </html>
