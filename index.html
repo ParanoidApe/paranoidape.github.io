@@ -3,112 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore the paranoid musings of a restless mind. Delve into writings that echo in the shadows.">
-    <title>Paranoid Musings</title>
-    <style>
-        body {
-            background-color: #1a1a1a;
-            color: #eaeaea;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        header {
-            height: 100vh;
-            background: url('background.jpg') no-repeat center center/cover;
-            color: #fff;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        header h1 {
-            font-size: 3.5em;
-            margin: 0;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-        }
-        header p {
-            font-size: 1.2em;
-            margin: 20px 0;
-        }
-        header .cta {
-            margin-top: 20px;
-        }
-        header .cta a {
-            text-decoration: none;
-            color: #1a1a1a;
-            background-color: #ff6f61;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        header .cta a:hover {
-            background-color: #e05b51;
-            transform: scale(1.05);
-        }
-        main {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        section {
-            margin-bottom: 60px;
-        }
-        section h2 {
-            color: #ff6f61;
-            font-size: 2em;
-            text-align: center;
-        }
-        section p {
-            margin: 20px 0;
-            text-align: center;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: #aaa;
-        }
-    </style>
+    <title>Room 0</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Hero Section -->
-    <header>
-        <h1>Paranoid Musings</h1>
-        <p>Dive into the labyrinth of thoughts that whisper in the shadows.</p>
-        <div class="cta">
-            <a href="#writings">Explore Writings</a>
-        </div>
-    </header>
-
-    <!-- Content Section -->
-    <main>
-        <section id="writings">
-            <h2>Featured Writings</h2>
-            <p>Discover fragments of paranoia and echoes of the unknown.</p>
-            <article>
-                <h3>They Are Watching</h3>
-                <p>The walls have ears, or so they say. But I know it’s true. The cameras blink in unison with my thoughts, recording every breath.</p>
-            </article>
-            <article>
-                <h3>The Flickering Light</h3>
-                <p>It wasn’t a coincidence. The light flickered three times—once for each secret I tried to keep. They’re telling me they know.</p>
-            </article>
-        </section>
-        <section id="about">
-            <h2>About</h2>
-            <p>This space is a glimpse into the mind of someone who questions everything. The writings here capture the unease of the unseen and the whispers of the unknown.</p>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Paranoid Musings. All rights reserved.</p>
-    </footer>
+    <div id="game">
+        <div id="output"></div>
+        <input type="text" id="commandInput" placeholder="Enter a command..." autofocus>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
