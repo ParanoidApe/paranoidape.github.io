@@ -4,107 +4,127 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Room state for managing objects
-    let roomState = {
-        mirrorBroken: false,
-        doorOpen: false,
-        drawerOpen: false,
-        keyFound: false,
-    };
-
-    // Draw the initial room state
+    // Function to draw the initial room state
     function drawRoom() {
-        console.log("Drawing the room...");
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
         // Background color
-        ctx.fillStyle = "#e800e8"; // Pink walls
+        ctx.fillStyle = "#e800e8"; // Bright pink background
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Draw the desk
-        ctx.fillStyle = "#8B4513"; // Brown color for the desk
-        ctx.fillRect(100, 350, 150, 100); // Desk body
+        // Draw walls with brick pattern
+        drawBricks();
 
-        // Draw the typewriter on the desk
-        ctx.fillStyle = "#2F4F4F"; // Dark gray for the typewriter
-        ctx.fillRect(130, 370, 90, 30); // Typewriter body
+        // Draw doorway and outdoor view
+        drawDoorway();
 
-        // Draw the door or portal
-        if (roomState.doorOpen) {
-            // Draw portal
-            ctx.fillStyle = "#00FF00"; // Bright green for the portal
+        // Draw torches on the walls
+        drawTorches();
+    }
+
+    // Draw the brick walls
+    function drawBricks() {
+        ctx.strokeStyle = "#000000"; // Black for brick lines
+        ctx.lineWidth = 2;
+
+        // Draw vertical bricks
+        for (let x = 0; x <= canvas.width; x += 40) {
             ctx.beginPath();
-            ctx.arc(650, 300, 50, 0, Math.PI * 2, false); // Circular portal
-            ctx.fill();
-        } else {
-            // Draw door
-            ctx.fillStyle = "#654321"; // Brown color for the door
-            ctx.fillRect(600, 200, 100, 200); // Door body
-            ctx.fillStyle = "#FFD700"; // Gold for the door handle
-            ctx.beginPath();
-            ctx.arc(680, 300, 10, 0, Math.PI * 2, false); // Door handle
-            ctx.fill();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height / 2);
+            ctx.stroke();
         }
 
-        // Draw the mirror
-        if (!roomState.mirrorBroken) {
-            ctx.fillStyle = "#C0C0C0"; // Silver color for the mirror frame
-            ctx.fillRect(400, 100, 150, 150); // Mirror frame
-            ctx.fillStyle = "#87CEEB"; // Light blue for the mirror glass
-            ctx.fillRect(410, 110, 130, 130); // Mirror glass
+        // Draw horizontal bricks
+        for (let y = 0; y <= canvas.height / 2; y += 40) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
         }
     }
 
-    // Update room graphics when state changes
-    function updateRoom() {
-        drawRoom();
+    // Draw the doorway and the outside view
+    function drawDoorway() {
+        // Doorway background
+        ctx.fillStyle = "#000000"; // Black for doorway frame
+        ctx.fillRect(250, 100, 140, 180); // Doorway frame
+
+        // Outdoor scene
+        ctx.fillStyle = "#00FFFF"; // Bright cyan for sky
+        ctx.fillRect(260, 110, 120, 160);
+
+        // Sun in the sky
+        ctx.fillStyle = "#FFFFFF"; // White for the sun
+        ctx.beginPath();
+        ctx.arc(320, 140, 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Hills
+        ctx.fillStyle = "#00FF00"; // Bright green for hills
+        ctx.beginPath();
+        ctx.moveTo(260, 170);
+        ctx.lineTo(290, 150);
+        ctx.lineTo(320, 170);
+        ctx.lineTo(350, 150);
+        ctx.lineTo(380, 170);
+        ctx.fill();
+
+        // Path leading out
+        ctx.fillStyle = "#FFFF00"; // Yellow for path
+        ctx.fillRect(310, 220, 20, 50);
+
+        // Fence
+        ctx.strokeStyle = "#000000"; // Black for fence lines
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(270, 180);
+        ctx.lineTo(370, 180);
+        ctx.stroke();
+
+        // Fence posts
+        for (let x = 270; x <= 370; x += 20) {
+            ctx.beginPath();
+            ctx.moveTo(x, 180);
+            ctx.lineTo(x, 200);
+            ctx.stroke();
+        }
     }
 
-    // Command responses
+    // Draw torches on the walls
+    function drawTorches() {
+        ctx.fillStyle = "#000000"; // Black for torch holders
+        ctx.fillRect(180, 150, 10, 30);
+        ctx.fillRect(460, 150, 10, 30);
+
+        // Flame on the torches
+        ctx.fillStyle = "#FFA500"; // Orange for flame
+        ctx.beginPath();
+        ctx.moveTo(185, 140);
+        ctx.lineTo(175, 130);
+        ctx.lineTo(195, 130);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(465, 140);
+        ctx.lineTo(455, 130);
+        ctx.lineTo(475, 130);
+        ctx.fill();
+    }
+
+    // Draw the initial state of the room
+    drawRoom();
+
+    // Command responses (simplified)
     const responses = {
-        help: "Try commands like 'look', 'use [object]', or 'erase [object]'.",
-        look: "You see a desk, a typewriter, a mirror, and a locked door.",
-        "look at desk": "The desk has a single drawer, slightly ajar.",
-        "use drawer": () => {
-            if (!roomState.drawerOpen) {
-                roomState.drawerOpen = true;
-                roomState.keyFound = true;
-                updateRoom(); // Update visuals
-                return "You open the drawer and find a key.";
-            } else {
-                return "The drawer is already open.";
-            }
-        },
-        "erase door": () => {
-            if (roomState.keyFound) {
-                roomState.doorOpen = true;
-                updateRoom(); // Update visuals
-                return "The door dissolves into nothingness, revealing a glowing portal.";
-            } else {
-                return "The door resists. Perhaps you need something first.";
-            }
-        },
-        "erase mirror": () => {
-            if (!roomState.mirrorBroken) {
-                roomState.mirrorBroken = true;
-                updateRoom(); // Update visuals
-                return "The mirror shatters, revealing text: 'The floor is fragile...'";
-            } else {
-                return "The mirror is already broken.";
-            }
-        },
+        help: "Try commands like 'look around' or 'move north'.",
+        look: "You see a small room with bright pink walls, a doorway leading outside, and two torches on the walls.",
     };
 
     // Handle user input commands
     function handleCommand(command) {
-        const response = responses[command];
-        if (typeof response === 'function') {
-            output.innerHTML += `<div>> ${command}</div><div>${response()}</div>`;
-        } else if (response) {
-            output.innerHTML += `<div>> ${command}</div><div>${response}</div>`;
-        } else {
-            output.innerHTML += `<div>> ${command}</div><div>Nothing happens.</div>`;
-        }
+        const response = responses[command] || "Nothing happens.";
+        output.innerHTML += `<div>> ${command}</div><div>${response}</div>`;
         output.scrollTop = output.scrollHeight;
     }
 
@@ -116,7 +136,4 @@ document.addEventListener("DOMContentLoaded", () => {
             input.value = '';
         }
     });
-
-    // Draw the initial state of the room
-    drawRoom();
 });
