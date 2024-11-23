@@ -26,6 +26,22 @@ images.mirror.src = './assets/mirror.png';
 images.typewriter.src = './assets/typewriter.png';
 images.portal.src = './assets/portal.png'; // For when the portal appears
 
+let imagesLoaded = 0;
+const totalImages = Object.keys(images).length;
+
+// Function to track loading of all images
+function onImageLoad() {
+    imagesLoaded++;
+    if (imagesLoaded === totalImages) {
+        drawRoom(); // Draw the room once all images are loaded
+    }
+}
+
+// Set the onload handler for each image
+for (let key in images) {
+    images[key].onload = onImageLoad;
+}
+
 // Draw the initial room state
 function drawRoom() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
@@ -34,22 +50,19 @@ function drawRoom() {
     ctx.fillStyle = "#e800e8"; // Pink walls
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw objects
+    // Draw objects conditionally based on room state
     ctx.drawImage(images.desk, 100, 350, 150, 100); // Desk
-    ctx.drawImage(
-        roomState.doorOpen ? images.portal : images.door,
-        600,
-        200,
-        100,
-        200
-    ); // Door or portal
-    ctx.drawImage(
-        roomState.mirrorBroken ? null : images.mirror,
-        400,
-        100,
-        150,
-        150
-    ); // Mirror (disappear if broken)
+
+    if (roomState.doorOpen) {
+        ctx.drawImage(images.portal, 600, 200, 100, 200); // Draw portal if door is open
+    } else {
+        ctx.drawImage(images.door, 600, 200, 100, 200); // Draw door if not open
+    }
+
+    if (!roomState.mirrorBroken) {
+        ctx.drawImage(images.mirror, 400, 100, 150, 150); // Draw mirror if not broken
+    }
+
     ctx.drawImage(images.typewriter, 250, 350, 150, 100); // Typewriter
 }
 
@@ -61,7 +74,7 @@ function updateRoom() {
 // Command responses
 const responses = {
     help: "Try commands like 'look', 'use [object]', or 'erase [object]'.",
-    look: "You see a desk, a typewriter, a broken mirror, and a locked door.",
+    look: "You see a desk, a typewriter, a mirror, and a locked door.",
     "look at desk": "The desk has a single drawer, slightly ajar.",
     "use drawer": () => {
         if (!roomState.drawerOpen) {
@@ -114,6 +127,3 @@ input.addEventListener('keydown', (e) => {
         input.value = '';
     }
 });
-
-// Draw the initial state of the room when images are loaded
-images.desk.onload = drawRoom;
