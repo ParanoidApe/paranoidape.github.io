@@ -1,0 +1,32 @@
+body {
+    font-family: monospace;
+    background-color: black;
+    color: white;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#game {
+    width: 60%;
+    text-align: left;
+}
+
+#output {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#commandInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+}
