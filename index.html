@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room 0</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link your CSS file -->
+    <title>Echoes of the Void - Text RPG</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game">
-        <canvas id="gameCanvas" width="640" height="480"></canvas> <!-- Canvas for graphics -->
-        <input type="text" id="commandInput" placeholder="Enter a command..." autofocus>
-        <div id="output"></div> <!-- For displaying text responses -->
+    <div id="game-container">
+        <div id="story-output">
+            <p>Welcome to <strong>Echoes of the Void</strong>. The multiverse awaits your choices...</p>
+        </div>
+        <div id="user-input">
+            <input type="text" id="commandInput" placeholder="Enter your command..." autofocus>
+            <button id="submitCommand">Submit</button>
+        </div>
     </div>
-    <script src="script.js"></script> <!-- Link your external JS file -->
+    <script src="script.js"></script>
 </body>
 </html>
