@@ -3,25 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Forest of Healing</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Side Scroller</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            background: lightblue; /* Background color for the game */
+        }
+    </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="story-output">
-            <p>Welcome to <strong>The Forest of Healing</strong>. Your journey to find Uncle Fatty begins...</p>
-        </div>
-        <div id="side-panel">
-            <h3>Available Commands:</h3>
-            <ul id="command-list">
-                <!-- Commands will be dynamically added here -->
-            </ul>
-        </div>
-        <div id="user-input">
-            <input type="text" id="commandInput" placeholder="Enter your command..." autofocus>
-            <button id="submitCommand">Submit</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const spriteImage = new Image();
+        spriteImage.src = 'image1.png'; // Replace with the path to your sprite image
+
+        const sprite = {
+            x: 50,
+            y: canvas.height / 2 - 32,
+            width: 64,
+            height: 64,
+            speed: 5
+        };
+
+        const keys = {
+            ArrowUp: false,
+            ArrowDown: false,
+            ArrowLeft: false,
+            ArrowRight: false
+        };
+
+        window.addEventListener('keydown', (e) => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = true;
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = false;
+            }
+        });
+
+        function update() {
+            if (keys.ArrowUp && sprite.y > 0) sprite.y -= sprite.speed;
+            if (keys.ArrowDown && sprite.y < canvas.height - sprite.height) sprite.y += sprite.speed;
+            if (keys.ArrowLeft && sprite.x > 0) sprite.x -= sprite.speed;
+            if (keys.ArrowRight && sprite.x < canvas.width - sprite.width) sprite.x += sprite.speed;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(spriteImage, sprite.x, sprite.y, sprite.width, sprite.height);
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        spriteImage.onload = () => {
+            gameLoop();
+        };
+    </script>
 </body>
 </html>
